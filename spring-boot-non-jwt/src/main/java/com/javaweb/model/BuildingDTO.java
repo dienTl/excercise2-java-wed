@@ -78,6 +78,7 @@ public class BuildingDTO {
 		public void setBrokerageFee(Double brokerageFee) {
 			this.brokerageFee = brokerageFee;
 		}
+	
 	    
 		
 		

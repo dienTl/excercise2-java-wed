@@ -24,7 +24,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	static final String PASS =  "demo123";
 	
 	public static void jointable(Map<String,Object> params , List<String> typeCode, StringBuilder sql) {
-		String staffId  =(String)params.get("staffid");
+		String staffId  = (String)params.get("staffid");
 		if(StringUtil.checkString(staffId)) {
 				sql.append("INNER JOIN assignmentbuilding on b.id = assignmentbuilding.buildingid ");
 			}
@@ -43,12 +43,12 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 		for(Map.Entry<String, Object> it : params.entrySet()) {
 			if(!it.getKey().equals("staffid") &&  !it.getKey().equals("typeCode") && !it.getKey().startsWith("area") && !it.getKey().startsWith("rentPrice")){
 				String value = it.getValue().toString();
-				if(StringUtil.checkString(value)) {
+				if(!StringUtil.checkString(value)) {
 					if(NumberUtil.isNumber(value)== true) {
 						where.append(" AND b."+ it.getKey()+ "=" + value);
 					}
 					else {
-						where.append(" AND b."+ it.getKey()+ "LIKE '%"+ value+ "%' ");
+						where.append(" AND b."+ it.getKey()+ " LIKE '%"+ value+ "%' ");
 					}
 				}
 			}
@@ -93,10 +93,10 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	
 	@Override
 	public List<BuildingEntity> findAll(Map<String , Object> params,List<String> typeCode) {
-		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.districtid, b.street , b.ward , b.numberofbasement , b.floorarea ,b.rentprice ," 
-				+ "b.managername,b.managerphonenumber, b.servicefee, b.brokeragefee , b.createddate FROM building  b ");
+		StringBuilder sql = new StringBuilder("SELECT b.id , b.name , b.districtid , b.street , b.direction , b.ward , b.emptyarea , b.floorarea , b.numberofbasement , b.floorarea ,b.rentprice ," 
+				+ " b.managername , b.managerphonenumber , b.servicefee , b.brokeragefee , b.createddate FROM building b ");
 		jointable(params, typeCode, sql);
-		StringBuilder where = new StringBuilder(" where 1=1");
+		StringBuilder where = new StringBuilder(" where 1=1 ");
 		queryNomal(params, where);
 		querySpecial(params, typeCode, where);
 		where.append(" GROUP BY b.id;");
@@ -113,9 +113,10 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 				    building.setDirection(rs.getString("direction"));
 				    building.setNumberOfBasement(rs.getInt("numberOfBasement"));
 				    building.setDirection(rs.getString("direction"));
-				    building.setEmptyArea(rs.getInt("emptyArea"));
-				    building.setFloorArea(rs.getInt("floorArea"));
+				    building.setEmptyArea(rs.getInt("emptyarea"));
+				    building.setFloorArea(rs.getInt("floorarea"));
 				    building.setRentprice(rs.getInt("rentprice"));
+				    building.setDistrictId(rs.getInt("districtid"));
 				    building.setServicefee(rs.getInt("servicefee"));
 				    building.setBrokeragefee(rs.getDouble("brokeragefee"));
 				    building.setManageName(rs.getNString("managername"));
@@ -123,10 +124,10 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 				    result.add(building);
 			}
 			
-			System.out.println("connected database") ;
+			System.out.println("connected databaseeee") ;
 		} catch( SQLException e ) {
 			e.printStackTrace();
-			System.out.println("error connect");
+			System.out.println("error connectttt");
 		}
 		// TODO Auto-generated method stub
 		return result;

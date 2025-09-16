@@ -30,8 +30,7 @@ import com.javaweb.service.BuildingService;
 public class BuildingApi {
 	@Autowired
 	private BuildingService buildingService;
-    @GetMapping(value = "/api/building/")
-    
+    @GetMapping(value = "/api/building/")  
     public List<BuildingDTO> GETbuilding1(@RequestParam Map<String , Object> params,
     									  @RequestParam(value="typeCode" , required = false) List<String> typeCode){
     									

@@ -11,20 +11,18 @@ import org.springframework.stereotype.Repository;
 import com.javaweb.repository.DistricRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistricEntity;
+import com.javaweb.utils.ConnectionJDBCUtil;
 
 @Repository
 public class DistrictRepositoryImpl implements DistricRepository{
 
 	
-	static final String DB_URL = "jdbc:mysql://localhost:3306/duan1";
-	static final String USER = "root" ;
-	static final String PASS =  "demo123";
-	
+
 	
 	public DistricEntity findName(Integer id) {
 		String sql = "SELECT d.name FROM district d WHERE d.id = " + id +";" ;
 		 DistricEntity districEntity = new DistricEntity();
-		try(Connection conn = DriverManager.getConnection(DB_URL,USER , PASS);
+		try(Connection conn = ConnectionJDBCUtil.getConnection();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)){
 			while(rs.next()) {

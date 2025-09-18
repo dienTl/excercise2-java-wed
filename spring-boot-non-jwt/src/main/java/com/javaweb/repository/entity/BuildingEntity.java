@@ -11,7 +11,7 @@ public class BuildingEntity {
 	    private Integer floorArea;
 	    private String direction;
 	    private Integer level;
-	    private Integer emptyarea;
+	    private String emptyarea;
 	    private Integer rentprice;
 	    private String rentpricedescription;
 	    private Integer servicefee;
@@ -85,10 +85,10 @@ public class BuildingEntity {
 	    public void setWaterfee(Integer waterfee) { this.waterfee = waterfee; }
 	    
 	    
-	    public Integer getEmptyArea() {
+	    public String getEmptyArea() {
 			return emptyarea;
 		}
-		public void setEmptyArea(Integer emptyArea) {
+		public void setEmptyArea(String emptyArea) {
 			this.emptyarea = emptyArea;
 		}
 		public Integer getElectricityfee() { return electricityfee; }

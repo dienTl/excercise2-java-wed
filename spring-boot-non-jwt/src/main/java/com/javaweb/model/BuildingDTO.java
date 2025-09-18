@@ -8,10 +8,11 @@ public class BuildingDTO {
 	    private String managerName;       // Tên quản lý
 	    private String managerPhone;      // Số điện thoại
 	    private Integer floorArea;        // D.T sàn
-	    private Integer emptyArea;        // D.T trống
+	    private String emptyArea;        // D.T trống
 	    private Integer rentPrice;        // Giá thuê
 	    private Integer serviceFee;       // Phí dịch vụ
 	    private Double brokerageFee;     // Phí môi giới
+	    private String rentArea;
 		public String getName() {
 			return name;
 		}
@@ -54,12 +55,7 @@ public class BuildingDTO {
 		public void setFloorArea(Integer floorArea) {
 			this.floorArea = floorArea;
 		}
-		public Integer getEmptyArea() {
-			return emptyArea;
-		}
-		public void setEmptyArea(Integer emptyArea) {
-			this.emptyArea = emptyArea;
-		}
+		
 		public Integer getRentPrice() {
 			return rentPrice;
 		}
@@ -78,7 +74,19 @@ public class BuildingDTO {
 		public void setBrokerageFee(Double brokerageFee) {
 			this.brokerageFee = brokerageFee;
 		}
-	
+		public String getRentArea() {
+			return rentArea;
+		}
+		public void setRentArea(String rentArea) {
+			this.rentArea = rentArea;
+		}
+		public String getEmptyArea() {
+			return emptyArea;
+		}
+		public void setEmptyArea(String emptyArea) {
+			this.emptyArea = emptyArea;
+		}
+		
 	    
 		
 		

@@ -13,6 +13,8 @@ public class BuildingDTO {
 	    private Integer serviceFee;       // Phí dịch vụ
 	    private Double brokerageFee;     // Phí môi giới
 	    private String rentArea;
+	    private Integer districtId ;
+	    private Integer staffId ;
 		public String getName() {
 			return name;
 		}
@@ -85,6 +87,18 @@ public class BuildingDTO {
 		}
 		public void setEmptyArea(String emptyArea) {
 			this.emptyArea = emptyArea;
+		}
+		public Integer getDistrictId() {
+			return districtId;
+		}
+		public void setDistrictId(Integer districtId) {
+			this.districtId = districtId;
+		}
+		public Integer getStaffId() {
+			return staffId;
+		}
+		public void setStaffId(Integer staffId) {
+			this.staffId = staffId;
 		}
 		
 	    

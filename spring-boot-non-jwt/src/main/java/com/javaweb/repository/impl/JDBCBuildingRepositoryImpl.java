@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 
@@ -23,18 +24,16 @@ import com.javaweb.utils.ConnectionJDBCUtil;
 import com.javaweb.utils.NumberUtil;
 import com.javaweb.utils.StringUtil;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+
 @Repository
 @PropertySource("classpath:application-uat.properties")
+@Primary
 public class JDBCBuildingRepositoryImpl implements BuildingRepository {
-	
-	
-	@Value("${spring.datasource.url}")
-	private String DB_URL ;
-	@Value("${spring.datasource.username}")
-	private String USER ;
-	@Value("${spring.datasource.password}")
-	private String PASS ;
-
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	public static void jointable(BuildingSearchBuilder buildingSearchBuilder , StringBuilder sql) {
 		Integer staffId  = buildingSearchBuilder.getStaffId();
@@ -140,7 +139,7 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT b.id , b.name , b.districtid , b.street , b.direction , b.ward , b.emptyarea , b.numberofbasement , b.floorarea ,b.rentprice ," 
-				+ " b.managername , b.managerphonenumber , b.servicefee , b.brokeragefee , b.createddate FROM building b ");
+				+ " b.managername , b.managerphonenumber , b.servicefee , b.brokeragefee,b.waterfee,b.structure,b.renttime,b.rentpricedescription,b.payment ,b.overtimefee,b.level,b.note,b.motorbikefee, b.createddate,b.modifiedby ,b.linkofbuilding, b.carfee , b.electricityfee ,b.deposit, b.createdby , b.decorationtime FROM building b ");
 		jointable(buildingSearchBuilder, sql);
 		StringBuilder where = new StringBuilder(" where 1=1 ");
 		queryNomal(buildingSearchBuilder, where);
@@ -148,38 +147,41 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 		where.append(" GROUP BY b.id;");
 		sql.append(where);
 		List<BuildingEntity> result = new ArrayList<>();
-		try(Connection conn = DriverManager.getConnection(DB_URL,USER, PASS);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql.toString());){
-			while(rs.next()) {
-				 BuildingEntity building = new BuildingEntity();
-				    building.setName(rs.getString("name"));
-				    building.setStreet(rs.getString("street"));
-				    building.setWard(rs.getNString("ward"));
-				    building.setDirection(rs.getString("direction"));
-				    building.setNumberOfBasement(rs.getInt("numberOfBasement"));
-				    building.setDirection(rs.getString("direction"));
-				    building.setEmptyarea(rs.getString("Emptyarea"));
-				    building.setFloorarea(rs.getInt("floorarea"));
-				    building.setRentprice(rs.getInt("rentprice"));
-				    building.setDistrictId(rs.getInt("districtid"));
-				    building.setServicefee(rs.getInt("servicefee"));
-				    building.setBrokeragefee(rs.getDouble("brokeragefee"));
-				    building.setManagername(rs.getNString("managername"));
-				    building.setManagephonenumber(rs.getNString("managephonenumber"));
-				    building.setId(rs.getInt("id"));
-				    result.add(building);
-			}
-			
-			System.out.println("connected databaseeee") ;
-		} catch( SQLException e ) {
-			e.printStackTrace();
-			System.out.println("error connectttt");
-		}
-		// TODO Auto-generated method stub
-		return result;
+//		try(Connection conn = DriverManager.getConnection(DB_URL,USER, PASS);
+//				Statement stmt = conn.createStatement();
+//				ResultSet rs = stmt.executeQuery(sql.toString());){
+//			while(rs.next()) {
+//				 BuildingEntity building = new BuildingEntity();
+//				    building.setName(rs.getString("name"));
+//				    building.setStreet(rs.getString("street"));
+//				    building.setWard(rs.getNString("ward"));
+//				    building.setDirection(rs.getString("direction"));
+//				    building.setNumberOfBasement(rs.getInt("numberOfBasement"));
+//				    building.setDirection(rs.getString("direction"));
+//				    building.setEmptyarea(rs.getString("Emptyarea"));
+//				    building.setFloorarea(rs.getInt("floorarea"));
+//				    building.setRentprice(rs.getInt("rentprice"));
+//				    building.setDistrictId(rs.getInt("districtid"));
+//				    building.setServicefee(rs.getInt("servicefee"));
+//				    building.setBrokeragefee(rs.getDouble("brokeragefee"));
+//				    building.setManagername(rs.getNString("managername"));
+//				    building.setManagephonenumber(rs.getNString("managephonenumber"));
+//				    building.setId(rs.getInt("id"));
+//				    result.add(building);
+//			}
+//			
+//			System.out.println("connected databaseeee") ;
+//		} catch( SQLException e ) {
+//			e.printStackTrace();
+//			System.out.println("error connectttt");
+//		}
+//		// TODO Auto-generated method stub
+		
+		//sql navite
+		
+		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+		return  query.getResultList();
 	}
-	@Override
 	public void DeleteById(Long id) {
 		// TODO Auto-generated method stub
 		

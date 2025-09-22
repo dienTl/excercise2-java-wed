@@ -61,13 +61,13 @@ public class BuildingApi {
     
 	@PersistenceContext
 	private EntityManager entityManager;
-    @PostMapping(value="/api/building/")
-    @Transactional
-    public void CreateBuilding(@RequestBody RequestBuilding requestBuilding ) {
-    	BuildingEntity buildingEntity = new BuildingEntity() ;
-    	buildingEntity.setName(requestBuilding.getName());
-    	entityManager.persist(buildingEntity);
-    }
+//    @PostMapping(value="/api/building/")
+//    @Transactional
+//    public void CreateBuilding(@RequestBody RequestBuilding requestBuilding ) {
+//    	BuildingEntity buildingEntity = new BuildingEntity() ;
+//    	buildingEntity.setName(requestBuilding.getName());
+//    	entityManager.persist(buildingEntity);
+//    }
     
     
 //    @PostMapping(value="/api/building/")

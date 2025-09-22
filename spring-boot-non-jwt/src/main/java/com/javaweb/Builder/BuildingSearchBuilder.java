@@ -18,6 +18,7 @@ public class BuildingSearchBuilder {
     private final Integer areaFrom;
     private final Integer areaTo;
     private final Integer staffId;
+    private final Integer cafee;
     private final Integer brokerageFee;
     private final String direction;
     private final Integer serviceFee;
@@ -41,9 +42,11 @@ public class BuildingSearchBuilder {
         this.brokerageFee = builder.brokerageFee;
         this.direction = builder.direction;
         this.serviceFee = builder.serviceFee;
+        this.cafee = builder.carfee;
     }
 
     // Getter
+    
     public String getName() { return name; }
     public Integer getFloorArea() { return floorArea; }
     public String getWard() { return ward; }
@@ -61,8 +64,16 @@ public class BuildingSearchBuilder {
     public Integer getBrokerageFee() { return brokerageFee; }
     public String getDirection() { return direction; }
     public Integer getServiceFee() { return serviceFee; }
+    
+    public String getDistrictId() {
+		return districtId;
+	}
 
-    // Builder
+	public Integer getCafee() {
+		return cafee;
+	}
+
+	// Builder
     public static class Builder {
         private String name;
         private Integer floorArea;
@@ -80,6 +91,7 @@ public class BuildingSearchBuilder {
         private Integer staffId;
         private Integer brokerageFee;
         private String direction;
+        private Integer carfee ;
         private Integer serviceFee;
 
         public Builder setName(String name) {
@@ -137,5 +149,13 @@ public class BuildingSearchBuilder {
         public BuildingSearchBuilder build() {
             return new BuildingSearchBuilder(this);
         }
+		public void setDistrictId(String districtId) {
+			this.districtId = districtId;
+		}
+		public void setCarfee(Integer carfee) {
+			this.carfee = carfee;
+		}
+        
+        
     }
 }

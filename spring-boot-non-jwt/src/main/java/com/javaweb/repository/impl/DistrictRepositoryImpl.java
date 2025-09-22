@@ -13,28 +13,8 @@ import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistricEntity;
 import com.javaweb.utils.ConnectionJDBCUtil;
 
-@Repository
-public class DistrictRepositoryImpl implements DistricRepository{
 
+public class DistrictRepositoryImpl {
 	
-
-	
-	public DistricEntity findName(Integer id) {
-		String sql = "SELECT d.name FROM district d WHERE d.id = " + id +";" ;
-		 DistricEntity districEntity = new DistricEntity();
-		try(Connection conn = ConnectionJDBCUtil.getConnection();
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)){
-			while(rs.next()) {
-				 districEntity.setName(rs.getString("name"));		  
-			}
-			
-			System.out.println("connected database") ;
-		} catch( SQLException e ) {
-			e.printStackTrace();
-			System.out.println("error connect");
-		}
-		return districEntity;
-	}
 	
 }

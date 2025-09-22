@@ -5,8 +5,12 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+
 public class ConnectionJDBCUtil {
-	static final String DB_URL = "jdbc:mysql://localhost:3306/duan1";
+
+	static String DB_URL ;
 	static final String USER = "root" ;
 	static final String PASS =  "demo123";
 	

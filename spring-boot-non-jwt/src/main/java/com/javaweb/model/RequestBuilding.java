@@ -1,7 +1,7 @@
 package com.javaweb.model;
 
-public class BuildingDTO {
-	    private String name;              // Tên sản phẩm (tòa nhà)
+public class RequestBuilding {
+	 	private String name;              // Tên sản phẩm (tòa nhà)
 	    private String direction;
 	    private String address;           // Địa chỉ
 	    private Integer numberofbasement; // Số tầng hầm
@@ -99,9 +99,5 @@ public class BuildingDTO {
 		public void setStaffid(Integer staffid) {
 			this.staffid = staffid;
 		}
-	
 	    
-		
-		
-   
 }

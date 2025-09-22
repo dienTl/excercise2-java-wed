@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,12 +26,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaweb.model.BuildingDTO;
+import com.javaweb.model.RequestBuilding;
 import com.javaweb.model.errorResponseDTO;
+import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.service.BuildingService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.TransactionScoped;
+import jakarta.transaction.Transactional;
 @RestController // rest controller có bao gồm cả responseBody
+@PropertySource("classpath:application.properties")
 public class BuildingApi {
 	@Autowired
 	private BuildingService buildingService;
+	
+	@Value("${dev}")
+	private String data ;
+	
     @GetMapping(value = "/api/building/")  
     public List<BuildingDTO> GETbuilding1(@RequestParam Map<String , Object> params,
     									  @RequestParam(value="typeCode" , required = false) List<String> typeCode){
@@ -45,6 +59,16 @@ public class BuildingApi {
         
     }
     
+	@PersistenceContext
+	private EntityManager entityManager;
+    @PostMapping(value="/api/building/")
+    @Transactional
+    public void CreateBuilding(@RequestBody RequestBuilding requestBuilding ) {
+    	BuildingEntity buildingEntity = new BuildingEntity() ;
+    	buildingEntity.setName(requestBuilding.getName());
+    	entityManager.persist(buildingEntity);
+    }
+    
     
 //    @PostMapping(value="/api/building/")
 //    public BuildingDTO GETbuilding2(@RequestBody BuildingDTO buildingDTO) {
@@ -53,11 +77,9 @@ public class BuildingApi {
 //    	return buildingDTO ;
 //    }
     
-    @DeleteMapping(value="/api/building/{id}/{name}")
-    public void deleteBuilding(@PathVariable Integer id,
-    						   @PathVariable String name,
-    						   @RequestParam(value="ward" ,required = false ) String ward) {
-    	System.out.print("sdhk"+ id );
+    @DeleteMapping(value="/api/building/{id}/")
+    public void deleteBuilding(@PathVariable Integer id) {
+    	System.out.print(data);
     }
     
 }

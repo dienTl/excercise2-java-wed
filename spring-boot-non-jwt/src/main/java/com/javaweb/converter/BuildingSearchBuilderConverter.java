@@ -16,7 +16,7 @@ public class BuildingSearchBuilderConverter {
         		  .setName(MapUtil.getObject(params, "name", String.class))
         	        .setFloorArea(MapUtil.getObject(params, "FloorArea", Integer.class))
         	        .setWard(MapUtil.getObject(params, "ward", String.class))
-        	        .setAreaFrom(MapUtil.getObject(params, "areaFrom", Integer.class)) // sửa
+        	        .setAreaFrom(MapUtil.getObject(params, "areaFrom", Integer.class)) 
         	        .setAreaTo(MapUtil.getObject(params, "areaTo", Integer.class))     // sửa
         	        .setBrokerageFee(MapUtil.getObject(params, "brokenFee", Integer.class))  // sửa
         	        .setDirection(MapUtil.getObject(params, "direction", String.class))// sửa

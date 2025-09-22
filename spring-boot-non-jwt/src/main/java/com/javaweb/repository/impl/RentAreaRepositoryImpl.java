@@ -26,7 +26,7 @@ public class RentAreaRepositoryImpl implements RentAreaRepository {
 			        RentAreaEntity areaEntity = new RentAreaEntity();
 			        areaEntity.setId(rs.getInt("id"));             // id của rentarea
 			        areaEntity.setValue(rs.getInt("value"));       // diện tích thuê
-					areaEntity.setBuildingid(Id)  ;                // id tòa nhà (FK)
+					areaEntity.setBuilding(Id);  ;                // id tòa nhà (FK)
 			        rentAreas.add(areaEntity);
 			    }
 			} catch(Exception e) {
